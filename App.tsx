@@ -1,25 +1,26 @@
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import EmailList from './components/EmailList';
-import EmailDetail from './components/EmailDetail';
-import Footer from './components/Footer';
-import InfoDump from './components/InfoDump';
-import ArticleView from './components/ArticleView';
-import BlogList from './components/BlogList';
-import BlogDetailView from './components/BlogDetailView';
-import { Icons } from './components/icons/Icons';
-import { useInterval } from './hooks/useInterval';
-import { useTranslation } from './contexts/LanguageContext';
+import Header from './components/Header.tsx';
+import Hero from './components/Hero.tsx';
+import EmailList from './components/EmailList.tsx';
+import EmailDetail from './components/EmailDetail.tsx';
+import Footer from './components/Footer.tsx';
+import InfoDump from './components/InfoDump.tsx';
+import ArticleView from './components/ArticleView.tsx';
+import BlogList from './components/BlogList.tsx';
+import BlogDetailView from './components/BlogDetailView.tsx';
+import { Icons } from './components/icons/Icons.tsx';
+import { useInterval } from './hooks/useInterval.ts';
+import { useTranslation } from './contexts/LanguageContext.tsx';
 import { 
     generateNewEmail, 
     fetchInbox, 
     fetchMessageDetail,
     refreshMailTmToken,
     deleteMailTmAccount
-} from './services/emailService';
-import { EmailAccount, Message, MessageDetail, Article } from './types';
-import { blogArticles } from './data/blogArticles';
+} from './services/emailService.ts';
+import { EmailAccount, Message, MessageDetail, Article } from './types.ts';
+import { blogArticles } from './data/blogArticles.tsx';
 
 const POLLING_INTERVAL = 10000;
 
@@ -51,13 +52,11 @@ const App: React.FC = () => {
     };
 
     const handleGetNewEmail = useCallback(async () => {
-        // Prevent multiple simultaneous clicks and debounce rapid attempts
         if (isRequestLocked.current) return;
         isRequestLocked.current = true;
         
         clearLoadingInterval();
         setIsCreating(true);
-        // We only set loading(true) if we don't already have an account to avoid UI jumpiness on change
         if (!emailAccount) setLoading(true); 
         
         setError(null);
@@ -80,7 +79,7 @@ const App: React.FC = () => {
         try {
             const newAccount = await generateNewEmail();
             setEmailAccount(newAccount);
-            setMessages([]); // Clear old messages for the new identity
+            setMessages([]);
             setError(null); 
         } catch (err: any) {
             setError(err.message || 'Service busy. Please try again in a moment.');
@@ -89,7 +88,6 @@ const App: React.FC = () => {
             setLoadingMessage('');
             setLoading(false);
             setIsCreating(false);
-            // Relax the lock after a short delay to prevent spamming but allow recovery
             setTimeout(() => { isRequestLocked.current = false; }, 800);
         }
     }, [t, emailAccount]);
@@ -124,7 +122,6 @@ const App: React.FC = () => {
     const loadInbox = useCallback(async () => {
         if (!emailAccount || isRefreshing) return;
         setIsRefreshing(true);
-        // Visual delay for "pleasing" animation feedback
         const minLoadTime = new Promise(resolve => setTimeout(resolve, 800));
         const [inboxMessages] = await Promise.all([
             handleApiCall((account) => fetchInbox(account.token, account.apiSource), { isLoadInbox: true }),

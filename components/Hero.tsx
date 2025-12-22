@@ -58,7 +58,7 @@ const Hero: React.FC<HeroProps> = ({ emailAccount, onDeleteEmail, onNewEmail, on
                             <button 
                                 onClick={handleCopyEmail} 
                                 disabled={!emailAccount || isCreating}
-                                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-black py-5 px-8 rounded-2xl flex items-center justify-center gap-4 transition-all transform active:scale-95 disabled:opacity-30 shadow-2xl shadow-indigo-900/40 border border-white/10"
+                                className="w-full bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 text-white font-black py-5 px-8 rounded-2xl flex items-center justify-center gap-4 transform active:scale-95 disabled:opacity-30 shadow-xl shadow-indigo-600/30 border border-white/10"
                             >
                                 <Icons.Copy className="w-5 h-5"/>
                                 <span className="uppercase tracking-widest text-xs">{copySuccess || t('copy')}</span>

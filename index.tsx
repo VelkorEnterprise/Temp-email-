@@ -1,8 +1,8 @@
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-// Fix: Correctly import App from './App.tsx' to resolve module error.
-import App from './App';
-import { LanguageProvider } from './contexts/LanguageContext';
+import App from './App.tsx';
+import { LanguageProvider } from './contexts/LanguageContext.tsx';
 
 const container = document.getElementById('root');
 if (container) {

@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
-import { articles } from '../data/articles';
-import { Article } from '../types';
-import { Icons } from './icons/Icons';
-import { useTranslation } from '../contexts/LanguageContext';
+import { articles } from '../data/articles.tsx';
+import { Article } from '../types.ts';
+import { Icons } from './icons/Icons.tsx';
+import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <h2 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tighter leading-tight">{children}</h2>
@@ -45,7 +46,6 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
         <div className="bg-[#0f172a] text-gray-400 py-24 border-t border-white/5 relative">
             <div className="max-w-6xl mx-auto px-6">
                 
-                {/* Main Content From User Copy */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
                     <div className="lg:col-span-8">
                         <SectionTitle>{t('whatIsDisposableEmail')}</SectionTitle>
@@ -108,7 +108,6 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                     </div>
                 </div>
 
-                {/* Popular Articles Grid */}
                 <div className="mb-24">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                         <div>
@@ -154,7 +153,6 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                     </div>
                 </div>
 
-                {/* FAQ Section */}
                 <div className="max-w-4xl mx-auto">
                     <SectionTitle>{t('faqTitle')}</SectionTitle>
                     <div className="space-y-4">

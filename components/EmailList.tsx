@@ -1,8 +1,9 @@
+
 import React, { useMemo } from 'react';
-import { Message } from '../types';
-import { Icons } from './icons/Icons';
-import { keywords } from '../data/keywords';
-import { useTranslation } from '../contexts/LanguageContext';
+import { Message } from '../types.ts';
+import { Icons } from './icons/Icons.tsx';
+import { keywords } from '../data/keywords.ts';
+import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 interface EmailListProps {
   messages: Message[];
@@ -27,7 +28,6 @@ function formatDate(dateString: string) {
 const EmailList: React.FC<EmailListProps> = ({ messages, onSelectMessage }) => {
   const { t, language } = useTranslation();
   
-  // Rerender tip when language changes
   const emptyInboxTip = useMemo(() => getRandomItem(keywords), [language]);
 
   if (messages.length === 0) {
