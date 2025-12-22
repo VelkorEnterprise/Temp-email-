@@ -1,0 +1,97 @@
+import React, { useState } from 'react';
+import { keywords } from '../data/keywords';
+import { useTranslation, languages } from '../contexts/LanguageContext';
+import { Icons } from './icons/Icons';
+
+const shuffledKeywords = keywords.sort(() => 0.5 - Math.random()).slice(0, 30);
+
+interface FooterProps {
+    onNavigateBlog?: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onNavigateBlog }) => {
+    const { language, setLanguage, t } = useTranslation();
+    const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+
+    const linkClasses = "hover:text-indigo-400 transition-colors uppercase font-black tracking-widest text-[10px]";
+
+    const handleLanguageChange = (langKey: string) => {
+        setLanguage(langKey);
+        setIsLangMenuOpen(false);
+    };
+
+    return (
+        <footer className="bg-[#0f172a] border-t border-white/5">
+            <div className="bg-black/50 py-16 px-6">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h3 className="font-black text-indigo-400 uppercase tracking-[0.2em] text-xs mb-8">Popular Searches</h3>
+                    <div className="flex flex-wrap justify-center gap-3">
+                        {shuffledKeywords.map((keyword, index) => (
+                            <span key={index} className="bg-white/5 border border-white/5 text-gray-500 text-[10px] font-bold px-4 py-2 rounded-full cursor-pointer hover:bg-indigo-600/20 hover:text-indigo-400 hover:border-indigo-500/20 transition-all uppercase tracking-widest">
+                                {keyword}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            
+            <div className="py-12 px-6 border-t border-white/5">
+                <div className="max-w-5xl mx-auto">
+                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10 text-gray-500">
+                        <a href="#" className={linkClasses}>PREMIUM</a>
+                        <a href="#" className={linkClasses}>API</a>
+                        <button onClick={onNavigateBlog} className={linkClasses}>Privacy Hub</button>
+                        <a href="#" className={linkClasses}>10 MINUTE MAIL</a>
+                        <a href="#" className={linkClasses}>Email Generator</a>
+                        <a href="#" className={linkClasses}>Privacy</a>
+                        <a href="#" className={linkClasses}>Terms</a>
+                        <a href="#" className={linkClasses}>FAQ</a>
+                        <a href="#" className={linkClasses}>Contacts</a>
+                        <a href="#" className={linkClasses}>Advertising</a>
+                    </div>
+                    
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-white/5">
+                        <div className="flex items-center gap-6 text-xs font-black text-gray-600 uppercase tracking-widest">
+                            <a href="#" className="hover:text-teal-400 transition-colors">Temp Number</a>
+                            <div className="w-1 h-1 rounded-full bg-gray-800"></div>
+                            <a href="#" className="hover:text-teal-400 transition-colors">10MinuteMail</a>
+                            <div className="w-1 h-1 rounded-full bg-gray-800"></div>
+                            <a href="#" className="hover:text-teal-400 transition-colors">My Phone Number</a>
+                        </div>
+
+                        <div className="relative">
+                            <button 
+                                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)} 
+                                className="bg-white/5 border border-white/10 rounded-xl px-5 py-2 hover:bg-white/10 text-white flex items-center gap-3 uppercase text-xs font-black tracking-widest transition-all"
+                            >
+                                {language}
+                                <Icons.ChevronDown className={`w-4 h-4 transition-transform duration-500 ${isLangMenuOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                            {isLangMenuOpen && (
+                                <div className="absolute bottom-full mb-3 right-0 w-48 bg-[#1a1c23] border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+                                    <div className="max-h-60 overflow-y-auto no-scrollbar">
+                                        {Object.entries(languages).map(([key, name]) => (
+                                            <button 
+                                                key={key}
+                                                onClick={() => handleLanguageChange(key)}
+                                                className="block w-full text-left px-5 py-3 text-xs font-bold text-gray-400 hover:bg-indigo-600 hover:text-white transition-colors"
+                                            >
+                                                {name}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    
+                    <div className="mt-12 text-center text-[10px] font-black text-gray-700 uppercase tracking-[0.3em]">
+                        &copy; 2026 Temp Mail Pro — The No.1 Privacy Service
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
+};
+
+export default Footer;
