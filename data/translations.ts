@@ -99,7 +99,18 @@ export const translations: Translations = {
     '100Free': '100% Gratis',
     faqTitle: 'Preguntas Frecuentes',
     backToMain: 'Volver',
-    backToHub: 'Volver al Centro'
+    backToHub: 'Volver al Centro',
+    liveAnonymitySystem: 'Sistema de anonimato en vivo',
+    activeBurnerId: 'ID de quemador activo',
+    heroQuote: 'Olvídate del spam, envíos publicitarios, piratería y robots atacantes. Mantén tu buzón real limpio y seguro.',
+    premiumApi: 'API Premium',
+    '10MinuteMail': 'Correo de 10 Minutos',
+    premium: 'Premium',
+    helpedPeopleToday: 'Ayudamos a 12,540,129 personas hoy',
+    freeToUseForever: 'Gratis para siempre',
+    gmailAlternative: 'Alternativa a Gmail Temp',
+    burnerServiceNo1: 'Servicio Burner No.1',
+    tempNumberPlus: 'Número Temp Plus'
   },
   fr: {
     metaTitle: 'Email Temporaire - Email jetable anonyme gratuit | 10 Minute Mail',
@@ -114,7 +125,13 @@ export const translations: Translations = {
     change: 'Changer',
     privacyHub: 'Hub Confidentialité',
     explorePrivacyHub: 'Explorer le Hub',
-    backToMain: 'Retour'
+    backToMain: 'Retour',
+    liveAnonymitySystem: 'Système d\'anonymat en direct',
+    activeBurnerId: 'ID de brûleur actif',
+    heroQuote: 'Oubliez le spam, les mailings publicitaires, le piratage et les robots attaquants. Gardez votre boîte mail réelle propre et sécurisée.',
+    premium: 'Premium',
+    helpedPeopleToday: 'Nous avons aidé 12,540,129 personnes aujourd\'hui',
+    noSignupRequired: 'Aucune inscription requise'
   },
   zh: {
     metaTitle: '临时邮箱 - 免费匿名的一次性电子邮件 | 10分钟邮箱',
@@ -128,7 +145,12 @@ export const translations: Translations = {
     newEmail: '更换地址',
     change: '更换',
     privacyHub: '隐私中心',
-    explorePrivacyHub: '探索隐私中心'
+    explorePrivacyHub: '探索隐私中心',
+    liveAnonymitySystem: '实时匿名系统',
+    activeBurnerId: '活动临时ID',
+    heroQuote: '忘掉垃圾邮件、广告邮件、黑客攻击和攻击机器人。保持您的真实邮箱干净安全。',
+    noSignupRequired: '无需注册',
+    freeToUseForever: '永久免费使用'
   },
   ja: {
     metaTitle: '一時メール - 無料の匿名使い捨てメール | 10分メール',
@@ -142,6 +164,9 @@ export const translations: Translations = {
     newEmail: '新しいアドレス',
     change: '変更',
     privacyHub: 'プライバシーハブ',
-    explorePrivacyHub: 'ハブを探索する'
+    explorePrivacyHub: 'ハブを探索する',
+    liveAnonymitySystem: 'ライブ匿名システム',
+    activeBurnerId: 'アクティブな捨てアドID',
+    heroQuote: 'スパム、広告メール、ハッキング、攻撃ロボットのことは忘れてください。あなたの本当のメールボックスを清潔で安全に保ちます。'
   }
 };

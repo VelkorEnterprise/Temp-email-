@@ -51,16 +51,17 @@ const App: React.FC = () => {
     };
 
     const handleGetNewEmail = useCallback(async () => {
+        // Prevent multiple simultaneous clicks and debounce rapid attempts
         if (isRequestLocked.current) return;
         isRequestLocked.current = true;
         
         clearLoadingInterval();
         setIsCreating(true);
-        setLoading(true);
+        // We only set loading(true) if we don't already have an account to avoid UI jumpiness on change
+        if (!emailAccount) setLoading(true); 
+        
         setError(null);
         setSelectedMessage(null);
-        setMessages([]);
-        setEmailAccount(null);
 
         const messagesList = [
             t('loadingMsg1'),
@@ -74,22 +75,24 @@ const App: React.FC = () => {
         loadingIntervalRef.current = setInterval(() => {
             messageIndex = (messageIndex + 1) % messagesList.length;
             setLoadingMessage(messagesList[messageIndex]);
-        }, 1500);
+        }, 1200);
 
         try {
             const newAccount = await generateNewEmail();
             setEmailAccount(newAccount);
+            setMessages([]); // Clear old messages for the new identity
             setError(null); 
         } catch (err: any) {
-            setError(err.message || 'Failed to generate a new email address.');
+            setError(err.message || 'Service busy. Please try again in a moment.');
         } finally {
             clearLoadingInterval();
             setLoadingMessage('');
             setLoading(false);
             setIsCreating(false);
-            setTimeout(() => { isRequestLocked.current = false; }, 500);
+            // Relax the lock after a short delay to prevent spamming but allow recovery
+            setTimeout(() => { isRequestLocked.current = false; }, 800);
         }
-    }, [t]);
+    }, [t, emailAccount]);
 
     useEffect(() => {
         handleGetNewEmail();
@@ -110,18 +113,24 @@ const App: React.FC = () => {
                     return await apiCall({ ...emailAccount, token, refreshToken });
                 } catch {
                     if (options.isLoadInbox) handleGetNewEmail();
-                    else setError('Your session expired.');
+                    else setError('Session timed out.');
                 } finally {
                     setTimeout(() => { tokenRefreshAttempted.current = false; }, 2000);
                 }
-            } else if (!isAuthError) setError(error.message || 'Error occurred.');
+            } else if (!isAuthError) setError(error.message || 'Connection error.');
         }
     }, [emailAccount, handleGetNewEmail]);
     
     const loadInbox = useCallback(async () => {
         if (!emailAccount || isRefreshing) return;
         setIsRefreshing(true);
-        const inboxMessages = await handleApiCall((account) => fetchInbox(account.token, account.apiSource), { isLoadInbox: true });
+        // Visual delay for "pleasing" animation feedback
+        const minLoadTime = new Promise(resolve => setTimeout(resolve, 800));
+        const [inboxMessages] = await Promise.all([
+            handleApiCall((account) => fetchInbox(account.token, account.apiSource), { isLoadInbox: true }),
+            minLoadTime
+        ]);
+        
         if (inboxMessages) setMessages(inboxMessages);
         setIsRefreshing(false);
     }, [handleApiCall, emailAccount, isRefreshing]);
@@ -188,21 +197,33 @@ const App: React.FC = () => {
                             isDeleting={isDeleting}
                             loadingMessage={loadingMessage}
                         />
-                        <div className="bg-[#f8f9fa] py-12">
+                        <div className="bg-[#f8f9fa] py-16">
                             <div className="max-w-4xl mx-auto px-4 w-full">
-                                <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-                                    <button onClick={loadInbox} disabled={isRefreshing || loading} className="flex items-center gap-2 px-6 py-3 text-sm font-black text-white bg-indigo-600 rounded-xl hover:bg-indigo-500 shadow-lg shadow-indigo-600/20 transition-all">
-                                        {isRefreshing ? <Icons.Spinner className="w-4 h-4 animate-spin" /> : <Icons.Refresh className="w-4 h-4" />}
-                                        <span>{t('refresh')}</span>
+                                <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
+                                    <button 
+                                        onClick={loadInbox} 
+                                        disabled={isRefreshing || isCreating} 
+                                        className={`group flex items-center gap-3 px-8 py-4 text-sm font-black text-white bg-indigo-600 rounded-2xl hover:bg-indigo-500 shadow-xl shadow-indigo-600/20 transition-all active:scale-95 disabled:opacity-70`}
+                                    >
+                                        <Icons.Refresh className={`w-5 h-5 ${isRefreshing ? 'animate-spin-fast text-teal-300' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
+                                        <span className="tracking-widest uppercase">{isRefreshing ? 'Syncing...' : t('refresh')}</span>
                                     </button>
                                 </div>
-                                <div className="bg-white rounded-3xl shadow-2xl p-8 mb-8 border border-gray-100">
-                                    <h2 className="text-3xl font-black text-gray-900 mb-6 tracking-tight">{t('inbox')}</h2>
-                                    <div className="min-h-[400px]">
+                                <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 mb-8 border border-gray-100 overflow-hidden relative">
+                                    {isRefreshing && (
+                                        <div className="absolute top-0 left-0 w-full h-1 bg-indigo-100">
+                                            <div className="h-full bg-indigo-500 animate-progress-loading"></div>
+                                        </div>
+                                    )}
+                                    <h2 className="text-3xl font-black text-gray-900 mb-8 tracking-tight flex items-center gap-4">
+                                        <span className="w-2 h-8 bg-indigo-600 rounded-full"></span>
+                                        {t('inbox')}
+                                    </h2>
+                                    <div className="min-h-[450px]">
                                         {loading && !emailAccount ? (
-                                            <div className="flex flex-col items-center justify-center h-48 text-center">
-                                                <Icons.Spinner className="w-12 h-12 animate-spin text-indigo-500 mb-4" />
-                                                <p className="text-gray-500 font-bold">{loadingMessage}</p>
+                                            <div className="flex flex-col items-center justify-center h-48 text-center animate-pulse">
+                                                <Icons.Spinner className="w-12 h-12 animate-spin text-indigo-500 mb-6" />
+                                                <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">{loadingMessage}</p>
                                             </div>
                                         ) : (
                                             <EmailList messages={messages} onSelectMessage={handleSelectMessage} />
@@ -232,6 +253,23 @@ const App: React.FC = () => {
                 )}
             </main>
             <Footer onNavigateBlog={navigateToBlog} onGoHome={handleBackToMain} />
+            <style>{`
+                @keyframes progress-loading {
+                    0% { width: 0; left: 0; }
+                    50% { width: 100%; left: 0; }
+                    100% { width: 0; left: 100%; }
+                }
+                .animate-progress-loading {
+                    animation: progress-loading 1.5s infinite linear;
+                }
+                .animate-spin-fast {
+                    animation: spin 0.6s linear infinite;
+                }
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
         </div>
     );
 };

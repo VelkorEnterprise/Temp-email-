@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateBlog, onGoHome }) => {
                     onClick={onGoHome}
                 >
                     <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-600/20 transform group-hover:rotate-12 transition-all duration-500">
-                        <Icons.Logo className="w-8 h-8"/>
+                        <Icons.Logo className="w-8 h-8 text-white"/>
                     </div>
                     <div className="flex flex-col">
                         <span className="font-black text-3xl tracking-tighter text-white leading-none">
