@@ -45,6 +45,7 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
         <div className="bg-[#0f172a] text-gray-400 py-24 border-t border-white/5 relative">
             <div className="max-w-6xl mx-auto px-6">
                 
+                {/* Introduction Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
                     <div className="lg:col-span-8">
                         <SectionTitle>{t('whatIsDisposableEmail')}</SectionTitle>
@@ -56,14 +57,8 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                         </Paragraph>
 
                         <SubTitle>{t('techBehindTitle')}</SubTitle>
-                        <Paragraph>
-                            {t('techBehindP1')}
-                        </Paragraph>
-
-                        <SubTitle>{t('whyFakeEmailTitle')}</SubTitle>
-                        <Paragraph>
-                            {t('amazonTrialHack')}
-                        </Paragraph>
+                        <Paragraph>{t('techBehindP1')}</Paragraph>
+                        <Paragraph>{t('techBehindP2')}</Paragraph>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                             {[
@@ -107,6 +102,7 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                     </div>
                 </div>
 
+                {/* Popular Articles Grid */}
                 <div className="mb-24">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                         <div>
@@ -152,6 +148,59 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                     </div>
                 </div>
 
+                {/* Extended Information Section (Added after articles as requested) */}
+                <div className="max-w-4xl mx-auto space-y-16 mb-24 border-t border-white/5 pt-16">
+                    <section>
+                        <SectionTitle>{t('whatIsDeaTitle')}</SectionTitle>
+                        <Paragraph>{t('whatIsDeaP1')}</Paragraph>
+                        <Paragraph>{t('whatIsDeaP2')}</Paragraph>
+                        <Paragraph>{t('whatIsDeaP3')}</Paragraph>
+                    </section>
+
+                    <section>
+                        <SubTitle>{t('whyFakeEmailTitle')}</SubTitle>
+                        <Paragraph>{t('whyFakeEmailP1')}</Paragraph>
+                        <Paragraph>{t('whyFakeEmailP2')}</Paragraph>
+                        <Paragraph>{t('whyFakeEmailP3')}</Paragraph>
+                        
+                        <div className="mt-8">
+                            <h4 className="text-xl font-bold text-teal-400 mb-6">{t('legitimateReasonsTitle')}</h4>
+                            <ul className="space-y-4">
+                                <ListItem><strong>{t('reason1Title')}</strong> {t('reason1Body')}</ListItem>
+                                <ListItem><strong>{t('reason2Title')}</strong> {t('reason2Body')}</ListItem>
+                                <ListItem><strong>{t('reason3Title')}</strong> {t('reason3Body')}</ListItem>
+                                <ListItem><strong>{t('reason4Title')}</strong> {t('reason4Body')}</ListItem>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <SubTitle>{t('howToChooseTitle')}</SubTitle>
+                        <Paragraph>{t('howToChooseIntro')}</Paragraph>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            {[t('howToChooseL1'), t('howToChooseL2'), t('howToChooseL3'), t('howToChooseL4'), t('howToChooseL5'), t('howToChooseL6'), t('howToChooseL7')].map((item, i) => (
+                                <div key={i} className="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+                                    <span className="text-indigo-400 font-black">#0{i+1}</span>
+                                    <span className="text-sm text-gray-400">{item}</span>
+                                </div>
+                            ))}
+                        </ul>
+                        <Paragraph>{t('howToChooseOutro')}</Paragraph>
+                    </section>
+
+                    <section>
+                        <SubTitle>{t('howToUseTitle')}</SubTitle>
+                        <Paragraph>{t('howToUseP1')}</Paragraph>
+                        <Paragraph>{t('howToUseP2')}</Paragraph>
+                    </section>
+
+                    <section className="bg-indigo-600/10 p-10 rounded-[3rem] border border-indigo-500/20">
+                        <h3 className="text-3xl font-black text-white mb-6 tracking-tight">{t('conclusionTitle')}</h3>
+                        <Paragraph>{t('conclusionBody')}</Paragraph>
+                    </section>
+                </div>
+
+                {/* FAQ Section */}
                 <div className="max-w-4xl mx-auto">
                     <SectionTitle>{t('faqTitle')}</SectionTitle>
                     <div className="space-y-4">

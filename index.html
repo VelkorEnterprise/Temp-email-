@@ -51,19 +51,6 @@
         color: #E6EDF3;
         font-family: 'Inter', -apple-system, sans-serif;
       }
-      .glass-panel {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-      }
-      .glass-panel:hover {
-        border: 1px solid rgba(99, 102, 241, 0.3);
-        background: rgba(255, 255, 255, 0.05);
-      }
-      .glow-shadow {
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 20px rgba(99, 102, 241, 0.15);
-      }
       .mesh-bg {
         position: fixed;
         top: 0;
@@ -77,26 +64,13 @@
           radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
           radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
       }
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-      }
-      .animate-float { animation: float 6s ease-in-out infinite; }
-      
-      ::-webkit-scrollbar { width: 10px; }
-      ::-webkit-scrollbar-track { background: #0f172a; }
-      ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; border: 2px solid #0f172a; }
-      ::-webkit-scrollbar-thumb:hover { background: #475569; }
-
-      .no-scrollbar::-webkit-scrollbar { display: none; }
-      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
       #error-overlay {
           display: none;
           position: fixed;
           top: 0; left: 0; width: 100%; height: 100%;
           background: #0f172a; color: #ef4444;
           z-index: 9999; padding: 2rem; font-family: monospace;
+          overflow-y: auto;
       }
     </style>
     <script type="importmap">
@@ -111,12 +85,22 @@
 }
 </script>
     <script>
+      // CRITICAL: Unregister any service workers that might be intercepting and breaking the app
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+            console.log('Unregistered service worker to fix network path');
+          }
+        });
+      }
+
       window.onerror = function(msg, url, lineNo, columnNo, error) {
-        console.error('Global Error:', msg, 'at', url, 'line', lineNo);
+        console.error('Global Error caught:', msg);
         const overlay = document.getElementById('error-overlay');
         if (overlay) {
           overlay.style.display = 'block';
-          overlay.innerHTML = `<h1>Runtime Error</h1><p>${msg}</p><p>Location: ${url}:${lineNo}</p>`;
+          overlay.innerHTML = `<h1>System Startup Failure</h1><p>${msg}</p><p>Technical details: ${url}:${lineNo}</p>`;
         }
         return false;
       };
