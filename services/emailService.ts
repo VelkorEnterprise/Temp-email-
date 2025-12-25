@@ -1,4 +1,5 @@
-import { EmailAccount, Message, MessageDetail, ApiSource } from '../types';
+
+import { EmailAccount, Message, MessageDetail, ApiSource } from '../types.ts';
 
 const MAIL_TM_API = 'https://api.mail.tm';
 const RAPID_API_URL = 'https://free-tempmail-api.p.rapidapi.com';

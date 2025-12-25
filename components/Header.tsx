@@ -1,6 +1,7 @@
+
 import React from 'react';
-import { Icons } from './icons/Icons';
-import { useTranslation } from '../contexts/LanguageContext';
+import { Icons } from './icons/Icons.tsx';
+import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 interface HeaderProps {
     onNavigateBlog?: () => void;

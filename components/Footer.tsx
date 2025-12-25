@@ -1,15 +1,17 @@
+
 import React, { useState } from 'react';
-import { keywords } from '../data/keywords';
-import { useTranslation, languages } from '../contexts/LanguageContext';
-import { Icons } from './icons/Icons';
+import { keywords } from '../data/keywords.ts';
+import { useTranslation, languages } from '../contexts/LanguageContext.tsx';
+import { Icons } from './icons/Icons.tsx';
 
 const shuffledKeywords = keywords.sort(() => 0.5 - Math.random()).slice(0, 30);
 
 interface FooterProps {
     onNavigateBlog?: () => void;
+    onGoHome?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onNavigateBlog }) => {
+const Footer: React.FC<FooterProps> = ({ onNavigateBlog, onGoHome }) => {
     const { language, setLanguage, t } = useTranslation();
     const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 

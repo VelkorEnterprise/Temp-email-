@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
-import { EmailAccount } from '../types';
-import { Icons } from './icons/Icons';
-import { useTranslation } from '../contexts/LanguageContext';
+import { EmailAccount } from '../types.ts';
+import { Icons } from './icons/Icons.tsx';
+import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 interface HeroProps {
     emailAccount: EmailAccount | null;

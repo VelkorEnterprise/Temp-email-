@@ -1,15 +1,23 @@
+
 import React from 'react';
-import { blogArticles } from '../data/blogArticles';
-import { Icons } from './icons/Icons';
+import { blogArticles } from '../data/blogArticles.tsx';
+import { Icons } from './icons/Icons.tsx';
 
 interface BlogListProps {
     onSelectBlog: (blog: typeof blogArticles[0]) => void;
+    onBack: () => void;
 }
 
-const BlogList: React.FC<BlogListProps> = ({ onSelectBlog }) => {
+const BlogList: React.FC<BlogListProps> = ({ onSelectBlog, onBack }) => {
     return (
         <div className="bg-[#0f172a] min-h-screen py-20 px-6">
             <div className="max-w-7xl mx-auto">
+                <div className="flex justify-start mb-10">
+                   <button onClick={onBack} className="flex items-center gap-2 text-gray-500 font-bold hover:text-indigo-600 transition-colors text-sm uppercase tracking-widest">
+                        <Icons.Back className="w-4 h-4" />
+                        Back to Home
+                    </button>
+                </div>
                 <div className="text-center mb-20">
                     <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight leading-tight">
                         Privacy <span className="text-indigo-500">Hub</span>

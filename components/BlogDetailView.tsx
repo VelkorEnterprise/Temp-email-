@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
-import { Icons } from './icons/Icons';
+import { Icons } from './icons/Icons.tsx';
 
 interface BlogDetailViewProps {
     blog: any;
@@ -22,7 +23,6 @@ const BlogDetailView: React.FC<BlogDetailViewProps> = ({ blog, onBack, onGoHome 
 
     return (
         <div className="bg-white min-h-screen">
-            {/* Reading Progress Bar */}
             <div className="fixed top-0 left-0 w-full h-1 z-[100] bg-gray-100">
                 <div className="h-full bg-indigo-600 transition-all duration-75" style={{ width: `${scrollProgress}%` }}></div>
             </div>
