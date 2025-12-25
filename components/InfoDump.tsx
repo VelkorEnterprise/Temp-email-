@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { articles } from '../data/articles.tsx';
 import { Article } from '../types.ts';

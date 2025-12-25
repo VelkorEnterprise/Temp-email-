@@ -1,4 +1,3 @@
-
 import React, { useMemo } from 'react';
 import { Message } from '../types.ts';
 import { Icons } from './icons/Icons.tsx';

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Header from './components/Header.tsx';
 import Hero from './components/Hero.tsx';
