@@ -1,8 +1,7 @@
-
 import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
-import { translations } from '../data/translations.ts';
+import { translations } from './data/translations.ts';
 
-type LanguageContextType = {
+export type LanguageContextType = {
   language: string;
   setLanguage: (language: string) => void;
   t: (key: string) => string;
@@ -23,26 +22,21 @@ export const languages: { [key: string]: string } = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const getInitialLanguage = (): string => {
-    // 1. Check URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const langFromUrl = urlParams.get('lang');
     if (langFromUrl && languages[langFromUrl]) {
         return langFromUrl;
     }
-    // 2. Check localStorage
     const langFromStorage = localStorage.getItem('language');
     if (langFromStorage && languages[langFromStorage]) {
         return langFromStorage;
     }
-    // 3. Check browser language
     const browserLang = navigator.language.split('-')[0];
     if (languages[browserLang]) {
         return browserLang;
     }
-    // 4. Default to English
     return 'en';
 };
-
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<string>(getInitialLanguage);
@@ -51,7 +45,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (languages[lang]) {
       setLanguageState(lang);
       localStorage.setItem('language', lang);
-      // Update URL query parameter
       const urlParams = new URLSearchParams(window.location.search);
       urlParams.set('lang', lang);
       window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
@@ -73,7 +66,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   );
 };
 
-export const useTranslation = () => {
+export const useTranslation = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
     throw new Error('useTranslation must be used within a LanguageProvider');

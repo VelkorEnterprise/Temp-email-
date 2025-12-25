@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { keywords } from '../keywords.ts';
-import { useTranslation, languages } from '../contexts/LanguageContext.tsx';
+import { useTranslation, languages } from '../LanguageContext.tsx';
 import { Icons } from './Icons.tsx';
 
 const shuffledKeywords = [...keywords].sort(() => 0.5 - Math.random()).slice(0, 45);
@@ -100,7 +100,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigateBlog, onGoHome }) => {
                                 onClick={() => setIsLangMenuOpen(!isLangMenuOpen)} 
                                 className="bg-white/5 border border-white/10 rounded-xl px-5 py-2 hover:bg-white/10 text-white flex items-center gap-3 uppercase text-[10px] font-black tracking-widest transition-all"
                             >
-                                <span className="opacity-60">{language}</span>
+                                <span className="opacity-60">{String(languages[language] || language)}</span>
                                 <Icons.ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isLangMenuOpen ? 'rotate-180' : ''}`} />
                             </button>
                             {isLangMenuOpen && (
@@ -112,7 +112,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigateBlog, onGoHome }) => {
                                                 onClick={() => handleLanguageChange(key)}
                                                 className="block w-full text-left px-5 py-3 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:bg-indigo-600 hover:text-white transition-colors"
                                             >
-                                                {name}
+                                                {String(name)}
                                             </button>
                                         ))}
                                     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MessageDetail } from '../types.ts';
 import { Icons } from './Icons.tsx';
-import { useTranslation } from '../contexts/LanguageContext.tsx';
+import { useTranslation } from '../LanguageContext.tsx';
 
 interface EmailDetailProps {
   message: MessageDetail;

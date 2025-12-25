@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { articles } from '../hooks/articles.tsx';
 import { Article } from '../types.ts';
 import { Icons } from './Icons.tsx';
-import { useTranslation } from '../contexts/LanguageContext.tsx';
+import { useTranslation } from '../LanguageContext.tsx';
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <h2 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tighter leading-tight">{children}</h2>
@@ -148,7 +148,7 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                     </div>
                 </div>
 
-                {/* Extended Information Section (Added after articles as requested) */}
+                {/* Extended Information Section */}
                 <div className="max-w-4xl mx-auto space-y-16 mb-24 border-t border-white/5 pt-16">
                     <section>
                         <SectionTitle>{t('whatIsDeaTitle')}</SectionTitle>

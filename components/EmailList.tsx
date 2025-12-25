@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Message } from '../types.ts';
 import { Icons } from './Icons.tsx';
 import { keywords } from '../keywords.ts';
-import { useTranslation } from '../contexts/LanguageContext.tsx';
+import { useTranslation } from '../LanguageContext.tsx';
 
 interface EmailListProps {
   messages: Message[];

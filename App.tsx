@@ -10,7 +10,7 @@ import BlogList from './components/BlogList.tsx';
 import BlogDetailView from './components/BlogDetailView.tsx';
 import { Icons } from './components/Icons.tsx';
 import { useInterval } from './hooks/useInterval.ts';
-import { useTranslation } from './contexts/LanguageContext.tsx';
+import { useTranslation } from './LanguageContext.tsx';
 import { 
     generateNewEmail, 
     fetchInbox, 
@@ -62,10 +62,10 @@ const App: React.FC = () => {
         setSelectedMessage(null);
 
         const messagesList = [
-            t('loadingMsg1'),
-            t('loadingMsg2'),
-            t('loadingMsg3'),
-            t('loadingMsg4')
+            t('loadingMsg1') || 'Generating...',
+            t('loadingMsg2') || 'Securing...',
+            t('loadingMsg3') || 'Bypassing Filters...',
+            t('loadingMsg4') || 'Ready!'
         ];
         let messageIndex = 0;
         setLoadingMessage(messagesList[messageIndex]);
@@ -202,7 +202,7 @@ const App: React.FC = () => {
                                         className={`group flex items-center gap-3 px-8 py-4 text-sm font-black text-white bg-indigo-600 rounded-2xl hover:bg-indigo-500 shadow-xl shadow-indigo-600/20 transition-all active:scale-95 disabled:opacity-70`}
                                     >
                                         <Icons.Refresh className={`w-5 h-5 ${isRefreshing ? 'animate-spin-fast text-teal-300' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
-                                        <span className="tracking-widest uppercase">{isRefreshing ? 'Syncing...' : t('refresh')}</span>
+                                        <span className="tracking-widest uppercase">{isRefreshing ? 'Syncing...' : (t('refresh') || 'Refresh')}</span>
                                     </button>
                                 </div>
                                 <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 mb-8 border border-gray-100 overflow-hidden relative">
@@ -213,7 +213,7 @@ const App: React.FC = () => {
                                     )}
                                     <h2 className="text-3xl font-black text-gray-900 mb-8 tracking-tight flex items-center gap-4">
                                         <span className="w-2 h-8 bg-indigo-600 rounded-full"></span>
-                                        {t('inbox')}
+                                        {t('inbox') || 'Inbox'}
                                     </h2>
                                     <div className="min-h-[450px]">
                                         {loading && !emailAccount ? (
