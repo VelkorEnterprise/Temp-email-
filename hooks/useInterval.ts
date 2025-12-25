@@ -1,7 +1,9 @@
+
 import { useEffect, useRef } from 'react';
 
 export function useInterval(callback: () => void, delay: number | null) {
-  const savedCallback = useRef<() => void>();
+  // Added undefined as initial value to satisfy TypeScript and updated type to allow undefined
+  const savedCallback = useRef<(() => void) | undefined>(undefined);
 
   useEffect(() => {
     savedCallback.current = callback;

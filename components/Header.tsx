@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Icons } from './icons/Icons.tsx';
+import { Icons } from './Icons.tsx';
 import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 interface HeaderProps {
@@ -11,6 +10,11 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onNavigateBlog, onGoHome }) => {
     const { t } = useTranslation();
     
+    const handleAction = (e: React.MouseEvent) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <header className="flex-shrink-0 z-50 sticky top-0 bg-[#0f172a]/90 backdrop-blur-xl border-b border-white/5">
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -30,10 +34,10 @@ const Header: React.FC<HeaderProps> = ({ onNavigateBlog, onGoHome }) => {
                 </div>
                 
                 <nav className="hidden lg:flex items-center space-x-8 text-xs font-black uppercase tracking-widest text-gray-500">
-                    <button onClick={onNavigateBlog} className="hover:text-white transition-colors">{t('privacyHub')}</button>
-                    <a href="#" className="hover:text-white transition-colors">{t('premiumApi')}</a>
-                    <a href="#" className="hover:text-white transition-colors">{t('10MinuteMail')}</a>
-                    <div className="flex items-center gap-2 px-4 py-2 bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 rounded-full cursor-pointer hover:bg-indigo-600 hover:text-white transition-all">
+                    <button onClick={onNavigateBlog} className="hover:text-white transition-colors uppercase">{t('privacyHub')}</button>
+                    <button onClick={handleAction} className="hover:text-white transition-colors uppercase">{t('premiumApi')}</button>
+                    <button onClick={handleAction} className="hover:text-white transition-colors uppercase">{t('10MinuteMail')}</button>
+                    <div onClick={handleAction} className="flex items-center gap-2 px-4 py-2 bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 rounded-full cursor-pointer hover:bg-indigo-600 hover:text-white transition-all">
                         <Icons.Logo className="w-3 h-3"/>
                         <span>{t('premium')}</span>
                     </div>

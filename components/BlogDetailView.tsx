@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import { Icons } from './icons/Icons.tsx';
+import { Icons } from './Icons.tsx';
 
 interface BlogDetailViewProps {
     blog: any;

@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { blogArticles } from '../data/blogArticles.tsx';
-import { Icons } from './icons/Icons.tsx';
+import { Icons } from './Icons.tsx';
 
 interface BlogListProps {
     onSelectBlog: (blog: typeof blogArticles[0]) => void;

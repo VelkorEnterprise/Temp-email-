@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { articles } from '../data/articles.tsx';
+import { articles } from '../hooks/articles.tsx';
 import { Article } from '../types.ts';
-import { Icons } from './icons/Icons.tsx';
+import { Icons } from './Icons.tsx';
 import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (

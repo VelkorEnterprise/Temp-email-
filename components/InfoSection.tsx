@@ -1,6 +1,6 @@
 import React from 'react';
-import { articles } from '../data/articles';
-import { Article } from '../types';
+import { articles } from '../hooks/articles.tsx';
+import { Article } from '../types.ts';
 
 interface InfoSectionProps {
     onSelectArticle: (article: Article) => void;

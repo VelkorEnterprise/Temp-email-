@@ -8,7 +8,7 @@ import InfoDump from './components/InfoDump.tsx';
 import ArticleView from './components/ArticleView.tsx';
 import BlogList from './components/BlogList.tsx';
 import BlogDetailView from './components/BlogDetailView.tsx';
-import { Icons } from './components/icons/Icons.tsx';
+import { Icons } from './components/Icons.tsx';
 import { useInterval } from './hooks/useInterval.ts';
 import { useTranslation } from './contexts/LanguageContext.tsx';
 import { 

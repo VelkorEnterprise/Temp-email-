@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { EmailAccount } from '../types.ts';
-import { Icons } from './icons/Icons.tsx';
+import { Icons } from './Icons.tsx';
 import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 interface HeroProps {

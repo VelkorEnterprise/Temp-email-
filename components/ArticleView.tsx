@@ -1,7 +1,7 @@
 import React from 'react';
-import { Article } from '../types';
-import { Icons } from './icons/Icons';
-import { useTranslation } from '../contexts/LanguageContext';
+import { Article } from '../types.ts';
+import { Icons } from './Icons.tsx';
+import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 interface ArticleViewProps {
     article: Article;
