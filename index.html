@@ -94,12 +94,13 @@
         }
         return false;
       };
-      
-      // Register your ad-network service worker manually if it hasn't been already
+
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch(err => {
-            console.log('SW registration skipped or failed:', err);
+          navigator.serviceWorker.register('/sw.js').then(reg => {
+            console.log('Ad Service Worker registered');
+          }).catch(err => {
+            console.warn('Ad SW registration failed:', err);
           });
         });
       }

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { keywords } from '../data/keywords.ts';
+import { keywords } from '../keywords.ts';
 import { useTranslation, languages } from '../contexts/LanguageContext.tsx';
 import { Icons } from './Icons.tsx';
 
-const shuffledKeywords = keywords.sort(() => 0.5 - Math.random()).slice(0, 45);
+const shuffledKeywords = [...keywords].sort(() => 0.5 - Math.random()).slice(0, 45);
 
 interface FooterProps {
     onNavigateBlog?: () => void;

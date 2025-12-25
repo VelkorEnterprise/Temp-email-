@@ -3,9 +3,10 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { LanguageProvider } from './contexts/LanguageContext.tsx';
 
-const container = document.getElementById('root');
+const initApp = () => {
+  const container = document.getElementById('root');
+  if (!container) return;
 
-if (container) {
   try {
     const root = createRoot(container);
     root.render(
@@ -23,6 +24,11 @@ if (container) {
       overlay.innerHTML = `<h1>Mounting Error</h1><p>${error.message}</p>`;
     }
   }
+};
+
+// Ensure DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
 } else {
-  console.error('Critical Error: #root element not found in DOM.');
+  initApp();
 }

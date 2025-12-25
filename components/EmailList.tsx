@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Message } from '../types.ts';
 import { Icons } from './Icons.tsx';
-import { keywords } from '../data/keywords.ts';
+import { keywords } from '../keywords.ts';
 import { useTranslation } from '../contexts/LanguageContext.tsx';
 
 interface EmailListProps {
@@ -32,7 +32,6 @@ const EmailList: React.FC<EmailListProps> = ({ messages, onSelectMessage }) => {
   if (messages.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[450px] text-center text-gray-500 p-8 border-2 border-dashed border-gray-100 rounded-[2.5rem] bg-gray-50/50 relative overflow-hidden group">
-        {/* Decorative scanning animation background */}
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500 to-transparent h-[40%] w-full animate-scan-slow"></div>
         </div>
