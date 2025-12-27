@@ -62,39 +62,48 @@ const App: React.FC = () => {
         setSelectedMessage(null);
 
         const messagesList = [
-            t('loadingMsg1') || 'Generating...',
-            t('loadingMsg2') || 'Securing...',
-            t('loadingMsg3') || 'Bypassing Filters...',
-            t('loadingMsg4') || 'Ready!'
+            t('loadingMsg1') || 'Scanning Secure Nodes...',
+            t('loadingMsg2') || 'Bypassing Filters...',
+            t('loadingMsg3') || 'Finalizing...'
         ];
+        
+        // Rapid cycling for perceived speed
         let messageIndex = 0;
         setLoadingMessage(messagesList[messageIndex]);
-        
         loadingIntervalRef.current = setInterval(() => {
             messageIndex = (messageIndex + 1) % messagesList.length;
             setLoadingMessage(messagesList[messageIndex]);
-        }, 1200);
+        }, 150);
 
         try {
+            // Immediate fetch without artificial timeouts
             const newAccount = await generateNewEmail();
             setEmailAccount(newAccount);
             setMessages([]);
             setError(null); 
+            // Trigger an immediate inbox load to verify account is active
+            if (newAccount) {
+                const inboxMessages = await fetchInbox(newAccount.token, newAccount.apiSource);
+                setMessages(inboxMessages || []);
+            }
         } catch (err: any) {
-            setError(err.message || 'Service busy. Please try again in a moment.');
+            console.error('Email Generation Error:', err);
+            setError(err.message || 'Service busy. Please try again.');
         } finally {
             clearLoadingInterval();
             setLoadingMessage('');
             setLoading(false);
             setIsCreating(false);
-            setTimeout(() => { isRequestLocked.current = false; }, 800);
+            // Allow immediate next request if needed, no longer locked for long
+            isRequestLocked.current = false;
         }
     }, [t, emailAccount]);
 
+    // Initial mount trigger
     useEffect(() => {
         handleGetNewEmail();
         return () => clearLoadingInterval();
-    }, [handleGetNewEmail]);
+    }, []);
 
     const handleApiCall = useCallback(async <T,>(apiCall: (account: EmailAccount) => Promise<T>, options: { isLoadInbox?: boolean } = {}): Promise<T | undefined> => {
         if (!emailAccount) return;
@@ -121,14 +130,12 @@ const App: React.FC = () => {
     const loadInbox = useCallback(async () => {
         if (!emailAccount || isRefreshing) return;
         setIsRefreshing(true);
-        const minLoadTime = new Promise(resolve => setTimeout(resolve, 800));
-        const [inboxMessages] = await Promise.all([
-            handleApiCall((account) => fetchInbox(account.token, account.apiSource), { isLoadInbox: true }),
-            minLoadTime
-        ]);
-        
-        if (inboxMessages) setMessages(inboxMessages);
-        setIsRefreshing(false);
+        try {
+            const inboxMessages = await handleApiCall((account) => fetchInbox(account.token, account.apiSource), { isLoadInbox: true });
+            if (inboxMessages) setMessages(inboxMessages);
+        } finally {
+            setIsRefreshing(false);
+        }
     }, [handleApiCall, emailAccount, isRefreshing]);
 
     useInterval(loadInbox, emailAccount ? POLLING_INTERVAL : null);
@@ -217,7 +224,7 @@ const App: React.FC = () => {
                                     </h2>
                                     <div className="min-h-[450px]">
                                         {loading && !emailAccount ? (
-                                            <div className="flex flex-col items-center justify-center h-48 text-center animate-pulse">
+                                            <div className="flex flex-col items-center justify-center h-48 text-center">
                                                 <Icons.Spinner className="w-12 h-12 animate-spin text-indigo-500 mb-6" />
                                                 <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">{loadingMessage}</p>
                                             </div>

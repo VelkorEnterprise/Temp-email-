@@ -1,5 +1,5 @@
 import React from 'react';
-import { articles } from '../hooks/articles.tsx';
+import { articles } from '../data/articles.tsx';
 import { Article } from '../types.ts';
 
 interface InfoSectionProps {

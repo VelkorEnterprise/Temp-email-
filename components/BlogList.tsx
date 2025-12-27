@@ -1,13 +1,30 @@
+
 import React from 'react';
 import { blogArticles } from '../data/blogArticles.tsx';
 import { Icons } from './Icons.tsx';
 
+// Define the interface locally to fix TypeScript inference issues
+interface BlogArticle {
+    slug: string;
+    title: string;
+    category: string;
+    author: string;
+    date: string;
+    readTime: string;
+    thumbnail: string;
+    description: string;
+    content: React.ReactNode;
+}
+
 interface BlogListProps {
-    onSelectBlog: (blog: typeof blogArticles[0]) => void;
+    onSelectBlog: (blog: BlogArticle) => void;
     onBack: () => void;
 }
 
 const BlogList: React.FC<BlogListProps> = ({ onSelectBlog, onBack }) => {
+    // Explicitly cast blogArticles to fix the union type error caused by potential data inconsistencies
+    const articles = blogArticles as unknown as BlogArticle[];
+
     return (
         <div className="bg-[#0f172a] min-h-screen py-20 px-6">
             <div className="max-w-7xl mx-auto">
@@ -27,7 +44,7 @@ const BlogList: React.FC<BlogListProps> = ({ onSelectBlog, onBack }) => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {blogArticles.map((blog) => (
+                    {articles.map((blog) => (
                         <div 
                             key={blog.slug}
                             onClick={() => onSelectBlog(blog)}
