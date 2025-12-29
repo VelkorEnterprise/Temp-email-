@@ -52,6 +52,7 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                         <Paragraph>
                             {t('disposableEmailDefinition')}
                         </Paragraph>
+
                         <Paragraph>
                             {t('advancedService')}
                         </Paragraph>
