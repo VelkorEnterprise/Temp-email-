@@ -62,10 +62,10 @@ const App: React.FC = () => {
         setSelectedMessage(null);
 
         const messagesList = [
-            t('loadingMsg1') || 'Generating...',
-            t('loadingMsg2') || 'Securing...',
-            t('loadingMsg3') || 'Bypassing Filters...',
-            t('loadingMsg4') || 'Ready!'
+            t('loadingMsg1') || 'Scanning Secure Nodes...',
+            t('loadingMsg2') || 'Bypassing Platform Filters...',
+            t('loadingMsg3') || 'Initializing Temporary Inbox...',
+            t('loadingMsg4') || 'Ready for Anonymous Reception...'
         ];
         let messageIndex = 0;
         setLoadingMessage(messagesList[messageIndex]);
@@ -205,6 +205,7 @@ const App: React.FC = () => {
                                         <span className="tracking-widest uppercase">{isRefreshing ? 'Syncing...' : (t('refresh') || 'Refresh')}</span>
                                     </button>
                                 </div>
+
                                 <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 mb-8 border border-gray-100 overflow-hidden relative">
                                     {isRefreshing && (
                                         <div className="absolute top-0 left-0 w-full h-1 bg-indigo-100">
@@ -215,6 +216,7 @@ const App: React.FC = () => {
                                         <span className="w-2 h-8 bg-indigo-600 rounded-full"></span>
                                         {t('inbox') || 'Inbox'}
                                     </h2>
+
                                     <div className="min-h-[450px]">
                                         {loading && !emailAccount ? (
                                             <div className="flex flex-col items-center justify-center h-48 text-center animate-pulse">

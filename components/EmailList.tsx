@@ -36,7 +36,7 @@ const EmailList: React.FC<EmailListProps> = ({ messages, onSelectMessage }) => {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500 to-transparent h-[40%] w-full animate-scan-slow"></div>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center">
+        <div className="relative z-10 flex flex-col items-center w-full">
             <div className="bg-white p-8 rounded-[2rem] shadow-xl mb-10 group-hover:scale-110 transition-transform duration-700 shadow-indigo-500/5">
                 <Icons.Inbox className="w-20 h-20 text-indigo-500" />
             </div>

@@ -3,6 +3,7 @@ import { articles } from '../data/articles.tsx';
 import { Article } from '../types.ts';
 import { Icons } from './Icons.tsx';
 import { useTranslation } from '../LanguageContext.tsx';
+import AdBanner from './AdBanner.tsx';
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <h2 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tighter leading-tight">{children}</h2>
@@ -49,6 +50,7 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
                     <div className="lg:col-span-8">
                         <SectionTitle>{t('whatIsDisposableEmail')}</SectionTitle>
+                        
                         <Paragraph>
                             {t('disposableEmailDefinition')}
                         </Paragraph>
@@ -60,6 +62,9 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                         <SubTitle>{t('techBehindTitle')}</SubTitle>
                         <Paragraph>{t('techBehindP1')}</Paragraph>
                         <Paragraph>{t('techBehindP2')}</Paragraph>
+
+                        {/* Banner moved here from after "What is Disposable..." Title */}
+                        <AdBanner scriptSrc="https://grotesquephilosophy.com/bZX.V/sadoGflN0FYNWdcP/-eYm-9/uNZAUElakWPmTaY/3/MlzuUh0/MvjjMFtINnjtcjz/N_T/QRyUNbAh" />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                             {[
@@ -160,12 +165,17 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
 
                     <section>
                         <SubTitle>{t('whyFakeEmailTitle')}</SubTitle>
+                        
                         <Paragraph>{t('whyFakeEmailP1')}</Paragraph>
                         <Paragraph>{t('whyFakeEmailP2')}</Paragraph>
                         <Paragraph>{t('whyFakeEmailP3')}</Paragraph>
                         
                         <div className="mt-8">
                             <h4 className="text-xl font-bold text-teal-400 mb-6">{t('legitimateReasonsTitle')}</h4>
+                            
+                            {/* Ad Banner for 'Legitimate reasons' section */}
+                            <AdBanner scriptSrc="https://grotesquephilosophy.com/bxXxV/s.dMGKlq0/YUWIcH/aeAm/9Mu/ZqUDlqkKPNTeY/3hMYzTcJ4UOLDRE/toN_jfcnzsNPz/gP4AMzgt" />
+
                             <ul className="space-y-4">
                                 <ListItem><strong>{t('reason1Title')}</strong> {t('reason1Body')}</ListItem>
                                 <ListItem><strong>{t('reason2Title')}</strong> {t('reason2Body')}</ListItem>
@@ -194,6 +204,9 @@ const InfoDump: React.FC<InfoDumpProps> = ({ onSelectArticle, onNavigateBlog }) 
                         <Paragraph>{t('howToUseP1')}</Paragraph>
                         <Paragraph>{t('howToUseP2')}</Paragraph>
                     </section>
+
+                    {/* Ad Banner for 'Why fake email' moved here before the conclusion section as requested */}
+                    <AdBanner scriptSrc="https://grotesquephilosophy.com/b.XOV/sCd_GqlP0UYeWAcm/jeRmZ9Mu/ZIU/lskMPlTOYm3SMvzPcH4QN-j/cKtFN/jFcZz/NYzfgJ2_OmAF" />
 
                     <section className="bg-indigo-600/10 p-10 rounded-[3rem] border border-indigo-500/20">
                         <h3 className="text-3xl font-black text-white mb-6 tracking-tight">{t('conclusionTitle')}</h3>
